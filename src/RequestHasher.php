@@ -19,7 +19,7 @@ class RequestHasher
     {
         return 'responsecache-'.md5(
             "{$request->getRequestUri()}/{$request->getMethod()}/{$request->header('x-session-id')}/".
-            $this->header('x-userinfo') . $this->cacheProfile->cacheNameSuffix($request)
+            $request->header('x-userinfo') . $this->cacheProfile->cacheNameSuffix($request)
         );
     }
 }
