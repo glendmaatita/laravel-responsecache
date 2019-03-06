@@ -21,6 +21,10 @@ class CacheResponse
 
     public function handle(Request $request, Closure $next, $lifetimeInSeconds = null): Response
     {
+        if (!$request->isMethod('get')) {
+            \ResponseCacheFacade::clear();
+        }
+
         if ($this->responseCache->enabled($request)) {
             if ($this->responseCache->hasBeenCached($request)) {
                 event(new ResponseCacheHit($request));
